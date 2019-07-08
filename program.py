@@ -12,20 +12,26 @@ from tkinter import *
 from enum import Enum
 from requests import get
 
-ip = ''
 
 class Program:
 
 	def Main():
+
 		rtsp = RTSPWorker().GetRTSP()
 		print(rtsp)
-		Stream().ShowStream(rtsp)
+
+		ip = RTSPWorker().GetIP(rtsp)
+		print(ip)
+
+		Stream().ShowStream(rtsp, ip)
 
 
 class Stream:
-	def ShowStream(self, rtsp):
+
+	def ShowStream(self, rtsp, ip):
 		cap = cv2.VideoCapture(rtsp)
 		cc = CameraCommands()
+		cc.SetIP(ip)
 		while True:
 			ret, frame = cap.read()
 			cv2.imshow('Camera', frame)
@@ -48,9 +54,16 @@ class Stream:
 
 class CameraCommands:
 
+	IP = ''
+
+	def SetIP(self, val):
+		self.IP = val
+
+
 	def Rotate(self, side):
 		password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-		top_level_url = "http://192.168.1.118/web/cgi-bin/hi3510/ptzctrl.cgi?-step=0&-act="+side
+		top_level_url = "http://"+self.IP+"/web/cgi-bin/hi3510/ptzctrl.cgi?-step=0&-act="+side
+		print(top_level_url)
 		password_mgr.add_password(None, top_level_url, "admin", "admin")
 		handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
 		opener = urllib.request.build_opener(handler)
@@ -64,7 +77,7 @@ class CameraCommands:
 		else:
 			self.s = 'open'
 		password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-		top_level_url = "http://192.168.1.118/cgi-bin/hi3510/param.cgi?cmd=setinfrared&cururl=http%3A%2F%2F192.168.1.118%2Fdisplay.html&-infraredstat="+self.s
+		top_level_url = "http://"+self.IP+"/cgi-bin/hi3510/param.cgi?cmd=setinfrared&cururl=http%3A%2F%2F"+self.IP+"%2Fdisplay.html&-infraredstat="+self.s
 		password_mgr.add_password(None, top_level_url, "admin", "admin")
 		handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
 		opener = urllib.request.build_opener(handler)
@@ -88,6 +101,12 @@ class RTSPWorker:
 			SerializeRTSP(url)
 			return url
 	
+	def GetIP(self, rtsp):
+		text = rtsp
+		left = '@'
+		right = '/11'
+		return str(text[text.index(left)+len(left):text.index(right)])
+
 	def DeserializeRTSP(self):
 		with open('data.csv', newline='') as f:
 			reader = csv.reader(f)

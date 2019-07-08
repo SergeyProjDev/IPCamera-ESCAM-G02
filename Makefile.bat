@@ -16,7 +16,7 @@ call :ColorText 0a "#PROGRAM STARTED" %newline%
 
 
 echo.
-py %file%.py
+py program.py
 echo.
 
 
