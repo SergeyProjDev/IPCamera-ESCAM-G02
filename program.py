@@ -1,11 +1,13 @@
+import pip
+import sys
 import csv
 import cv2
 import keyboard
+#import pygame
 import requests
-import sys
 import time
-import urllib.request
-import urllib.request as urllib2
+import urllib3.request
+import urllib3.request as urllib2
 import os
 
 from tkinter import *
@@ -15,6 +17,7 @@ from requests import get
 
 class Program:
 
+	@staticmethod
 	def Main():
 
 		rtsp = RTSPWorker().GetRTSP()
@@ -34,7 +37,10 @@ class Stream:
 		cc.SetIP(ip)
 		while True:
 			ret, frame = cap.read()
-			cv2.imshow('Camera', frame)
+			try:
+				cv2.imshow('Camera', frame)
+			except:
+				continue
 
 			if keyboard.is_pressed('d'):
 				cc.Rotate('right')
@@ -50,6 +56,25 @@ class Stream:
 				cc.Infraredstat()
 
 			cv2.waitKey(10)
+'''
+			if event.type == pygame.KEYDOWN:
+
+				if event.key == pygame.K_LEFT:
+					cc.Rotate('left')
+				if event.key == pygame.K_RIGHT:
+					cc.Rotate('right')
+				if event.key == pygame.K_UP:
+					cc.Rotate('up')
+				if event.key == pygame.K_DOWN:
+					cc.Rotate('down')
+
+			if event.type == pygame.KEYUP:
+
+				cc.Rotate('stop')
+
+'''
+
+			
 
 
 class CameraCommands:
@@ -93,7 +118,7 @@ class RTSPWorker:
 		return rtsp
 
 	def CheckRtspExistence(self, url):
-		choice = input("Current RTSP: "+url+";\nChange it?[y/n]")
+		choice = raw_input("Current RTSP: "+url+";\nChange it?[y/n]")
 		if (choice == 'n'):
 			return url
 		if (choice == 'y'):
@@ -108,7 +133,7 @@ class RTSPWorker:
 		return str(text[text.index(left)+len(left):text.index(right)])
 
 	def DeserializeRTSP(self):
-		with open('data.csv', newline='') as f:
+		with open('data.csv') as f:
 			reader = csv.reader(f)
 			for row in reader:
 				url = str(row)
