@@ -1,4 +1,3 @@
-import pip
 import sys
 import csv
 import cv2
@@ -6,8 +5,8 @@ import keyboard
 #import pygame
 import requests
 import time
-import urllib3.request
-import urllib3.request as urllib2
+import urllib.request
+import urllib.request as urllib2
 import os
 
 from tkinter import *
@@ -118,7 +117,7 @@ class RTSPWorker:
 		return rtsp
 
 	def CheckRtspExistence(self, url):
-		choice = raw_input("Current RTSP: "+url+";\nChange it?[y/n]")
+		choice = input("Current RTSP: "+url+";\nChange it?[y/n]")
 		if (choice == 'n'):
 			return url
 		if (choice == 'y'):
