@@ -10,6 +10,8 @@ echo.
 :start
 
 python -m pip install --upgrade pip
+pip install Pillow
+pip install numpy
 pip install opencv-python
 pip install keyboard
 pip install pygame

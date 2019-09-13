@@ -1,1 +1,2 @@
 pyInstaller program.py
+pause

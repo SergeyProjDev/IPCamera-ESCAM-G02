@@ -2,17 +2,21 @@ import sys
 import csv
 import cv2
 import keyboard
-#import pygame
 import requests
 import time
 import urllib.request
 import urllib.request as urllib2
 import os
+import numpy as np
 
 from tkinter import *
 from enum import Enum
 from requests import get
+from PIL import Image, ImageOps
 
+
+def nothing(x):
+    pass
 
 class Program:
 
@@ -31,15 +35,66 @@ class Program:
 class Stream:
 
 	def ShowStream(self, rtsp, ip):
+
 		cap = cv2.VideoCapture(rtsp)
+
 		cc = CameraCommands()
 		cc.SetIP(ip)
+
+		#choose color
+		#cv2.namedWindow("Tracking")
+		#cv2.createTrackbar("Red", "Tracking", 0, 255, nothing)
+		#cv2.createTrackbar("Green", "Tracking", 0, 255, nothing)
+		#cv2.createTrackbar("Blue", "Tracking", 0, 255, nothing)
+
+		#middle_screen_x = 600;
+		#middle_screen_y = 350;
+		#range_size = 20;
+
 		while True:
+
 			ret, frame = cap.read()
-			try:
-				cv2.imshow('Camera', frame)
-			except:
+
+			#analisis
+			'''
+			hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+			r = cv2.getTrackbarPos('Red','Tracking')
+			g = cv2.getTrackbarPos('Green','Tracking')
+			b = cv2.getTrackbarPos('Blue','Tracking')
+
+			hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) 
+			lower_red = np.array([r-50,g-50,b-50]) 
+			upper_red = np.array([r+50,g+50,b+50]) 
+
+			mask = cv2.inRange(hsv, lower_red, upper_red) 
+			bmask = cv2.GaussianBlur(mask, (5,5),0)
+			
+			moments = cv2.moments(bmask)
+			m00 = moments['m00']
+			x, y = 600, 350
+			if m00 != 0:
+				x = int(moments['m10']/m00)
+				y = int(moments['m01']/m00)
+
+			res = cv2.bitwise_and(frame,frame, mask=bmask)
+			cv2.imshow("Camera", res)
+
+			if x <= 580:
+				cc.Rotate('left')
 				continue
+			if x >= 620:
+				cc.Rotate('left')
+				continue
+			if y <= 320:
+				cc.Rotate('up')
+				continue
+			if y >= 370:
+				cc.Rotate('down')
+				continue
+			cc.Rotate('stop')
+			'''
+			cv2.imshow("Camera", frame)
 
 			if keyboard.is_pressed('d'):
 				cc.Rotate('right')
@@ -55,34 +110,15 @@ class Stream:
 				cc.Infraredstat()
 
 			cv2.waitKey(10)
-'''
-			if event.type == pygame.KEYDOWN:
-
-				if event.key == pygame.K_LEFT:
-					cc.Rotate('left')
-				if event.key == pygame.K_RIGHT:
-					cc.Rotate('right')
-				if event.key == pygame.K_UP:
-					cc.Rotate('up')
-				if event.key == pygame.K_DOWN:
-					cc.Rotate('down')
-
-			if event.type == pygame.KEYUP:
-
-				cc.Rotate('stop')
-
-'''
-
-			
 
 
 class CameraCommands:
 
-	IP = ''
+	IP = '' 
+	s = '' #infraRedLompState (can be open/close)
 
 	def SetIP(self, val):
 		self.IP = val
-
 
 	def Rotate(self, side):
 		password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
@@ -94,7 +130,6 @@ class CameraCommands:
 		opener.open(top_level_url)
 		urllib.request.install_opener(opener)
 
-	s = ''
 	def Infraredstat(self):
 		if self.s == 'open':
 			self.s = 'close'
@@ -149,4 +184,5 @@ class RTSPWorker:
 			writer.writerow(rtsp)
 
 
-Program.Main()
+
+Program.Main() #Start point
