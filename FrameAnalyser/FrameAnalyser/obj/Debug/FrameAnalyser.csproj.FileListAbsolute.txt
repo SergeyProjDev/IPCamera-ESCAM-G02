@@ -1,0 +1,17 @@
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\bin\Debug\FrameAnalyser.exe.config
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\bin\Debug\FrameAnalyser.exe
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\bin\Debug\FrameAnalyser.pdb
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\obj\Debug\FrameAnalyser.csprojAssemblyReference.cache
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\obj\Debug\FrameAnalyser.FormImage.resources
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\obj\Debug\FrameAnalyser.Properties.Resources.resources
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\obj\Debug\FrameAnalyser.csproj.GenerateResource.cache
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\obj\Debug\FrameAnalyser.exe
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\obj\Debug\FrameAnalyser.pdb
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\obj\Debug\FrameAnalyser.FormIpGetter.resources
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\bin\Debug\AForge.dll
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\bin\Debug\AForge.Imaging.dll
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\bin\Debug\AForge.Math.dll
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\bin\Debug\AForge.xml
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\bin\Debug\AForge.Imaging.xml
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\bin\Debug\AForge.Math.xml
+C:\Users\root\Desktop\IPCameraFrame\FrameAnalyser\FrameAnalyser\obj\Debug\FrameAnalyser.csproj.CopyComplete
